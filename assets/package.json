@@ -2,8 +2,49 @@
   "name": "dessert-assets",
   "version": "1.0.0",
   "description": "Complete build pipeline for all Dessert assets — fonts, images, icons, favicon, logos, media, docs",
-  "main": "scripts/build-all.js",
+  "main": "index.js",
+  "types": "index.d.ts",
   "type": "commonjs",
+  "bin": {
+    "dessert-assets": "./bin/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.js",
+      "import": "./index.js"
+    },
+    "./fonts": "./fonts/web/fonts.css",
+    "./icons": "./icons/sprite/Dessert-icons.svg",
+    "./favicon": "./favicon/site.webmanifest",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "bin",
+    "fonts/web",
+    "fonts/subset",
+    "images/optimized",
+    "images/thumbnails",
+    "images/backgrounds",
+    "icons/svg",
+    "icons/sprite",
+    "icons/png",
+    "icons/font-icons",
+    "favicon",
+    "logos/svg",
+    "logos/png",
+    "media/video/*.mp4",
+    "media/video/*.webm",
+    "media/video/*.jpg",
+    "media/audio/*.mp3",
+    "media/audio/*.ogg",
+    "docs",
+    "scripts",
+    "index.js",
+    "index.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build":         "node scripts/build-all.js",
     "build:fonts":   "node scripts/build-fonts.js",
@@ -16,7 +57,10 @@
     "build:css":     "node scripts/build-css.js",
     "clean":         "node scripts/clean.js",
     "rebuild":       "npm run clean && npm run build",
-    "watch":         "node scripts/watch.js"
+    "test":          "node scripts/test.js",
+    "pack:dry":      "npm pack --dry-run",
+    "watch":         "node scripts/watch.js",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "fontmin":              "^1.0.0",

@@ -163,6 +163,65 @@ fund=false
 audit=false`
     },
     {
+      id: 'license-root',
+      name: 'LICENSE',
+      path: 'assets/LICENSE',
+      type: 'file',
+      category: 'doc',
+      extension: 'txt',
+      size: '1.1 KB',
+      description: 'MIT License file for the Dessert Assets NPM package.',
+      previewType: 'code',
+      content: `MIT License
+
+Copyright (c) 2026 Dessert Project`
+    },
+    {
+      id: 'index-js',
+      name: 'index.js',
+      path: 'assets/index.js',
+      type: 'file',
+      category: 'script',
+      extension: 'js',
+      size: '1.2 KB',
+      description: 'Main CommonJS entry point for consumer Node applications.',
+      previewType: 'code',
+      content: `module.exports = { name: "dessert-assets", version: "1.0.0" };`
+    },
+    {
+      id: 'index-dts',
+      name: 'index.d.ts',
+      path: 'assets/index.d.ts',
+      type: 'file',
+      category: 'config',
+      extension: 'ts',
+      size: '780 B',
+      description: 'TypeScript declarations for dessert-assets library.',
+      previewType: 'code',
+      content: `export declare const name: string; export declare const version: string;`
+    },
+    {
+      id: 'bin-dir',
+      name: 'bin',
+      path: 'assets/bin',
+      type: 'folder',
+      category: 'script',
+      children: [
+        {
+          id: 'bin-cli',
+          name: 'cli.js',
+          path: 'assets/bin/cli.js',
+          type: 'file',
+          category: 'script',
+          extension: 'js',
+          size: '1.4 KB',
+          description: 'Executable CLI runner for npx dessert-assets commands.',
+          previewType: 'code',
+          content: `#!/usr/bin/env node\n// Dessert Assets CLI`
+        }
+      ]
+    },
+    {
       id: 'scripts-dir',
       name: 'scripts',
       path: 'assets/scripts',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActiveTab } from '../types';
-import { Play, FolderTree, Sparkles, GitFork, BookOpen, Terminal, CheckCircle2 } from 'lucide-react';
+import { Play, FolderTree, Sparkles, GitFork, BookOpen, Terminal, CheckCircle2, Package } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -16,6 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   totalBuildsCount,
 }) => {
   const navItems: { id: ActiveTab; label: string; icon: React.ReactNode; badge?: string }[] = [
+    { id: 'npm', label: '📦 NPM Stage (Focus)', icon: <Package className="w-4 h-4" /> },
     { id: 'pipeline', label: 'Build Pipeline', icon: <Terminal className="w-4 h-4" /> },
     { id: 'explorer', label: 'File & Script Tree', icon: <FolderTree className="w-4 h-4" /> },
     { id: 'showroom', label: 'Asset Showroom', icon: <Sparkles className="w-4 h-4" /> },

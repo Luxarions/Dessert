@@ -8,7 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "assets:test": "node assets/scripts/test.js",
+    "assets:build": "node assets/scripts/build-all.js",
+    "assets:clean": "node assets/scripts/clean.js",
+    "assets:cli": "node assets/bin/cli.js"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

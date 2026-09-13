@@ -70,4 +70,4 @@ export interface DessertFontVariant {
   sampleText: string;
 }
 
-export type ActiveTab = 'pipeline' | 'explorer' | 'showroom' | 'architecture' | 'docs';
+export type ActiveTab = 'npm' | 'pipeline' | 'explorer' | 'showroom' | 'architecture' | 'docs';

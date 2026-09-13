@@ -11,9 +11,10 @@ import { FileExplorer } from './components/FileExplorer';
 import { AssetShowroom } from './components/AssetShowroom';
 import { ArchitectureFlow } from './components/ArchitectureFlow';
 import { DocsViewer } from './components/DocsViewer';
+import { NpmStageInspector } from './components/NpmStageInspector';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('pipeline');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('npm');
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [totalBuildsCount, setTotalBuildsCount] = useState<number>(1);
 
@@ -185,6 +186,8 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6">
+        {activeTab === 'npm' && <NpmStageInspector />}
+
         {activeTab === 'pipeline' && (
           <PipelineRunner
             logs={logs}
