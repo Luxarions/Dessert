@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="home" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="cart" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="close" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="arrow-left" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="info" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="warning" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="error" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="settings" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></symbol>
+</svg>

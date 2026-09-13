@@ -1,0 +1,22 @@
+{
+  "name": "Dessert-Icons",
+  "icons": [
+    "home",
+    "user",
+    "search",
+    "cart",
+    "menu",
+    "close",
+    "arrow-left",
+    "arrow-right",
+    "heart",
+    "star",
+    "check",
+    "info",
+    "warning",
+    "error",
+    "settings",
+    "mail",
+    "phone"
+  ]
+}

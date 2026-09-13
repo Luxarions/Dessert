@@ -1,0 +1,7 @@
+/* Dessert Icon Font */
+@font-face {
+  font-family: 'Dessert-Icons';
+  src: url('Dessert-icons.woff2') format('woff2'),
+       url('Dessert-icons.woff') format('woff');
+}
+.icon { font-family: 'Dessert-Icons'; }

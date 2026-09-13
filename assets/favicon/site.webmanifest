@@ -1,7 +1,6 @@
 {
   "name": "Dessert App",
   "short_name": "Dessert",
-  "description": "Artisanal Patisserie and Dessert Platform",
   "icons": [
     {
       "src": "Dessert-android-chrome-192.png",
@@ -17,7 +16,5 @@
   ],
   "theme_color": "#FFB6C1",
   "background_color": "#FFFFFF",
-  "display": "standalone",
-  "orientation": "portrait",
-  "start_url": "/"
+  "display": "standalone"
 }
