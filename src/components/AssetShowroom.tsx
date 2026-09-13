@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { DESSERT_FONTS, DESSERT_ICONS, playDessertSound } from '../data/pipelineData';
+import { DESSERT_FONTS, DESSERT_ICONS } from '../data/pipelineData';
+import { dessertAssets, DessertIconId, LogoVariant, ImageName, ImageFormat } from '../services/DessertAssetService';
 import {
   Type,
   Sparkles,
@@ -13,11 +14,15 @@ import {
   Layers,
   Smartphone,
   CheckCircle2,
-  ExternalLink
+  ExternalLink,
+  Code2,
+  Terminal,
+  ShieldCheck,
+  Play
 } from 'lucide-react';
 
 export const AssetShowroom: React.FC = () => {
-  const [subTab, setSubTab] = useState<'fonts' | 'icons' | 'logos' | 'favicons' | 'media'>('fonts');
+  const [subTab, setSubTab] = useState<'fonts' | 'icons' | 'logos' | 'favicons' | 'media' | 'integration'>('fonts');
 
   // Font workbench state
   const [fontText, setFontText] = useState(
@@ -58,6 +63,7 @@ export const AssetShowroom: React.FC = () => {
             { id: 'logos', label: '🍰 Brand Logos Suite', icon: <Layers className="w-4 h-4" /> },
             { id: 'favicons', label: '🎯 Favicons & PWA Icons', icon: <Smartphone className="w-4 h-4" /> },
             { id: 'media', label: '🎬 Audio & Video Studio', icon: <Volume2 className="w-4 h-4" /> },
+            { id: 'integration', label: '🔌 Public vs Private Calls', icon: <Code2 className="w-4 h-4" /> },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -240,7 +246,7 @@ export const AssetShowroom: React.FC = () => {
                       key={icon.id}
                       onClick={() => {
                         setSelectedIcon(icon);
-                        playDessertSound('click');
+                        dessertAssets.playAudioCue('click');
                       }}
                       className={`p-3.5 rounded-xl flex flex-col items-center justify-center gap-2 transition-all border text-center ${
                         isSelected
@@ -510,7 +516,7 @@ export const AssetShowroom: React.FC = () => {
                 <button
                   key={sound.type}
                   id={`btn-sound-${sound.type}`}
-                  onClick={() => playDessertSound(sound.type as 'notif' | 'click' | 'success' | 'error')}
+                  onClick={() => dessertAssets.playAudioCue(sound.type as 'notif' | 'click' | 'success' | 'error')}
                   className="p-4 rounded-xl bg-stone-950 border border-stone-800 hover:border-pink-400 hover:bg-stone-800/60 transition-all text-left group active:scale-95 space-y-2"
                 >
                   <div className="flex items-center justify-between">
@@ -557,6 +563,179 @@ export const AssetShowroom: React.FC = () => {
                   1280x720 • Timestamp 00:00:01 • Faststart Flag Active
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 6: INTEGRATION PATTERNS (PUBLIC VS PRIVATE) */}
+      {subTab === 'integration' && (
+        <div className="space-y-6">
+          {/* Header Banner */}
+          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-pink-500/10 text-pink-300 border border-pink-500/20">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-stone-100">
+                  Asset Calling Architecture: Public Path vs Private Encapsulation
+                </h3>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  Bagaimana <code className="text-pink-300 font-mono">index.html</code> dan komponen di <code className="text-pink-300 font-mono">src/</code> seharusnya memanggil aset secara baku dan aman.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2-Column Comparison */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* HTML Column */}
+            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-lg space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                  <h4 className="text-sm font-bold text-stone-100 font-mono">
+                    1. index.html (Public Static Path)
+                  </h4>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                  Public Root Access
+                </span>
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed">
+                File <code className="text-stone-200">index.html</code> dieksekusi browser sebelum bundler JavaScript aktif. Karena itu, aset harus dipanggil langsung via path statis publik:
+              </p>
+              <pre className="p-4 rounded-xl bg-stone-950 border border-stone-800 font-mono text-[11px] text-pink-200 overflow-x-auto leading-relaxed">
+{`<!-- index.html -->
+<head>
+  <!-- Favicon Standar -->
+  <link rel="icon" type="image/x-icon" 
+        href="/favicon/Dessert-favicon.ico" />
+  
+  <!-- Apple Touch & PWA Manifest -->
+  <link rel="apple-touch-icon" sizes="180x180" 
+        href="/favicon/Dessert-apple-touch-icon-180x180.png" />
+  <link rel="manifest" 
+        href="/favicon/site.webmanifest" />
+  
+  <!-- Auto-generated Web Fonts CSS -->
+  <link rel="stylesheet" 
+        href="/fonts/web/fonts.css" />
+</head>`}
+              </pre>
+              <div className="text-[11px] text-stone-400 bg-stone-950/60 p-3 rounded-lg border border-stone-800 flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Keuntungan:</strong> Browser dapat mem-preload favicon dan webfont saat HTML parsing, tanpa menunggu JS bundle diunduh.
+                </span>
+              </div>
+            </div>
+
+            {/* React / src Column */}
+            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-lg space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-pink-400"></span>
+                  <h4 className="text-sm font-bold text-stone-100 font-mono">
+                    2. src/ (Private Encapsulated Service)
+                  </h4>
+                </div>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-500/10 text-pink-300 border border-pink-500/20">
+                  Encapsulated Helper
+                </span>
+              </div>
+              <p className="text-xs text-stone-400 leading-relaxed">
+                Di dalam <code className="text-stone-200">src/</code>, jangan hardcode path string mentah. Gunakan modul layanan privat <code className="text-pink-300 font-mono">dessertAssets</code> yang bertipe ketat (type-safe):
+              </p>
+              <pre className="p-4 rounded-xl bg-stone-950 border border-stone-800 font-mono text-[11px] text-emerald-300 overflow-x-auto leading-relaxed">
+{`// src/components/CartButton.tsx
+import { dessertAssets } from '../services/DessertAssetService';
+
+export function CartButton() {
+  const handleClick = () => {
+    // 🔊 Memutar audio cue terenkapsulasi
+    dessertAssets.playAudioCue('click');
+  };
+
+  return (
+    <button onClick={handleClick}>
+      {/* 🎨 Memanggil SVG sprite secara modular */}
+      <svg className="w-5 h-5">
+        <use href={dessertAssets.getIconSpriteHref('cart')} />
+      </svg>
+      Checkout
+    </button>
+  );
+}`}
+              </pre>
+              <div className="text-[11px] text-stone-400 bg-stone-950/60 p-3 rounded-lg border border-stone-800 flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Keuntungan:</strong> Autocomplete TypeScript, sanitasi otomatis, fallback synthesizer jika audio belum ada, dan bebas typo.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Live Playground of dessertAssets */}
+          <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-lg space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-800">
+              <h4 className="text-sm font-bold text-stone-100 font-mono flex items-center gap-2">
+                <Play className="w-4 h-4 text-pink-300" />
+                Live Test: Internal Method Resolvers (dessertAssets)
+              </h4>
+              <span className="text-xs text-stone-500 font-mono">
+                Click to inspect resolved paths & trigger methods
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+              {[
+                {
+                  title: 'getIconSpriteHref("cart")',
+                  result: dessertAssets.getIconSpriteHref('cart'),
+                  action: () => dessertAssets.playAudioCue('click'),
+                  badge: 'Icon Sprite',
+                },
+                {
+                  title: 'getLogoSvgUrl("full")',
+                  result: dessertAssets.getLogoSvgUrl('full'),
+                  action: () => dessertAssets.playAudioCue('click'),
+                  badge: 'Vector Logo',
+                },
+                {
+                  title: 'getImageUrl("hero", "webp")',
+                  result: dessertAssets.getImageUrl('hero', 'webp'),
+                  action: () => dessertAssets.playAudioCue('click'),
+                  badge: 'Sharp Image',
+                },
+                {
+                  title: 'playAudioCue("success")',
+                  result: 'Triggers audio synthesis',
+                  action: () => dessertAssets.playAudioCue('success'),
+                  badge: 'Audio Cue',
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  onClick={item.action}
+                  className="p-4 rounded-xl bg-stone-950 border border-stone-800 hover:border-pink-400 hover:bg-stone-900/60 transition-all cursor-pointer group space-y-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-stone-800 text-stone-400 group-hover:bg-pink-400 group-hover:text-stone-950 transition-colors">
+                      {item.badge}
+                    </span>
+                    <Play className="w-3 h-3 text-stone-500 group-hover:text-pink-300 transition-colors" />
+                  </div>
+                  <div className="text-xs font-mono font-bold text-stone-200 group-hover:text-pink-200 truncate">
+                    {item.title}
+                  </div>
+                  <div className="text-[11px] font-mono text-emerald-400 truncate">
+                    {item.result}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BUILD_STEPS, playDessertSound } from '../data/pipelineData';
+import { BUILD_STEPS } from '../data/pipelineData';
+import { dessertAssets } from '../services/DessertAssetService';
 import { BuildStepId, TerminalLogLine } from '../types';
 import {
   Play,
@@ -76,7 +77,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
   const runSingleStep = async (stepId: BuildStepId) => {
     if (isRunning) return;
 
-    if (soundEnabled) playDessertSound('click');
+    if (soundEnabled) dessertAssets.playAudioCue('click');
     setIsRunning(true);
 
     if (stepId === 'clean') {
@@ -92,7 +93,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
       addLog('success', 'Cleaned files in: fonts/web');
       addLog('success', 'Clean complete: 10 locations processed');
       addLog('blank', '');
-      if (soundEnabled) playDessertSound('notif');
+      if (soundEnabled) dessertAssets.playAudioCue('notif');
       setIsRunning(false);
       return;
     }
@@ -112,7 +113,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
 
     addLog('success', `${step.name} finished successfully in ${duration}s`);
     addLog('blank', '');
-    if (soundEnabled) playDessertSound('success');
+    if (soundEnabled) dessertAssets.playAudioCue('success');
     setIsRunning(false);
   };
 
@@ -211,7 +212,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
     if (isRunning) return;
 
     setIsRunning(true);
-    if (soundEnabled) playDessertSound('click');
+    if (soundEnabled) dessertAssets.playAudioCue('click');
 
     addLog('banner', '🍰 DESSERT ASSETS BUILD');
     const masterStart = Date.now();
@@ -233,7 +234,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
       addLog('success', `${step.name} done in ${stepDuration}s`);
       addLog('blank', '');
       successCount++;
-      if (soundEnabled) playDessertSound('click');
+      if (soundEnabled) dessertAssets.playAudioCue('click');
       await new Promise((r) => setTimeout(r, 150));
     }
 
@@ -249,7 +250,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
     addLog('success', '🎉 All assets built successfully! Production-ready.');
     addLog('blank', '');
 
-    if (soundEnabled) playDessertSound('success');
+    if (soundEnabled) dessertAssets.playAudioCue('success');
     onIncrementBuildCount();
     setIsRunning(false);
   };
@@ -331,7 +332,7 @@ export const PipelineRunner: React.FC<PipelineRunnerProps> = ({
                 setIsWatchMode(!isWatchMode);
                 addLog('banner', isWatchMode ? 'WATCH MODE STOPPED' : '👁️  WATCH MODE ACTIVE');
                 addLog('info', isWatchMode ? 'File watcher disconnected.' : 'Watching fonts/raw, images/raw, icons/svg for live changes...');
-                if (soundEnabled) playDessertSound('notif');
+                if (soundEnabled) dessertAssets.playAudioCue('notif');
               }}
               className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-medium border transition-all active:scale-95 ${
                 isWatchMode
