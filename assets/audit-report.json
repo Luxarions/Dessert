@@ -1,0 +1,143 @@
+{
+  "score": 26,
+  "total": 25,
+  "percentage": 104,
+  "passedCount": 26,
+  "warningCount": 0,
+  "failedCount": 0,
+  "passes": [
+    {
+      "id": "PKG-1",
+      "title": "Valid package.json syntax",
+      "details": "Parsed valid JSON schema"
+    },
+    {
+      "id": "PKG-2",
+      "title": "Package Name Standard",
+      "details": "Current: \"dessert-assets\""
+    },
+    {
+      "id": "PKG-3",
+      "title": "SemVer Version Format",
+      "details": "Version: 1.0.0"
+    },
+    {
+      "id": "PKG-4",
+      "title": "Valid Open Source License",
+      "details": "License: MIT"
+    },
+    {
+      "id": "PKG-5",
+      "title": "Node Engine Constraints",
+      "details": "Engines: >=18.0.0"
+    },
+    {
+      "id": "PKG-6",
+      "title": "CLI Binary Executable Mapping",
+      "details": "Mapped to: ./bin/cli.js"
+    },
+    {
+      "id": "PKG-7",
+      "title": "Subpath Exports Defined",
+      "details": "Modern conditional exports present"
+    },
+    {
+      "id": "SEC-1",
+      "title": "NPM Whitelist Defined in \"files\"",
+      "details": "24 items whitelisted"
+    },
+    {
+      "id": "SEC-2",
+      "title": "Zero Sensitive Secrets in Whitelist",
+      "details": "No .env, keys, or credentials exposed"
+    },
+    {
+      "id": "SEC-3",
+      "title": "LICENSE File Present at Root",
+      "details": "Required for npm publish"
+    },
+    {
+      "id": "SEC-4",
+      "title": "Deterministic .npmrc Present",
+      "details": "Engine-strict and save-exact enforced"
+    },
+    {
+      "id": "CODE-1",
+      "title": "Main Entry File Exists",
+      "details": "File: index.js"
+    },
+    {
+      "id": "CODE-2",
+      "title": "TypeScript Declarations (.d.ts)",
+      "details": "File: index.d.ts"
+    },
+    {
+      "id": "CODE-3",
+      "title": "CLI Shebang Integrity",
+      "details": "#!/usr/bin/env node is first line"
+    },
+    {
+      "id": "ASSET-1",
+      "title": "Fonts CSS & @font-face rules",
+      "details": "fonts/web/fonts.css verified"
+    },
+    {
+      "id": "ASSET-2",
+      "title": "SVG Icons Sprite Standard",
+      "details": "Valid XML symbols compiled"
+    },
+    {
+      "id": "ASSET-3",
+      "title": "PWA site.webmanifest Standard",
+      "details": "Valid icons array, theme_color, standalone display"
+    },
+    {
+      "id": "ASSET-4",
+      "title": "Favicon ICO & Apple Touch Icons",
+      "details": "Both legacy ICO and Apple touch icons verified"
+    },
+    {
+      "id": "ASSET-5",
+      "title": "Dual-Format Logos (SVG + PNG)",
+      "details": "High-DPI 256/512/1024 + SVG vector assets ready"
+    },
+    {
+      "id": "ASSET-6",
+      "title": "Audio Dual Encoding (MP3 + OGG)",
+      "details": "192k MP3 with Vorbis OGG fallback for 100% browser coverage"
+    },
+    {
+      "id": "ASSET-7",
+      "title": "Video Stream Formats & Poster",
+      "details": "MP4 container with H.264 video available"
+    },
+    {
+      "id": "SRV-1",
+      "title": "Zero Dependency Build Scripts",
+      "details": "Scripts execute on pure Node.js runtime without crashing"
+    },
+    {
+      "id": "SRV-2",
+      "title": "Idempotent Clean & Rebuild Script",
+      "details": "Clean and rebuild hooks configured"
+    },
+    {
+      "id": "SRV-3",
+      "title": "Tarball Packaging Simulation (Dry-Run)",
+      "details": "Tested via npm pack --dry-run without unpack errors"
+    },
+    {
+      "id": "SRV-4",
+      "title": "Pre-Publish Guard Hook (prepublishOnly)",
+      "details": "Guards against publishing without running test suite"
+    },
+    {
+      "id": "SRV-5",
+      "title": "Public vs Private Path Separation",
+      "details": "Static assets resolved via root-relative or ESM service"
+    }
+  ],
+  "warnings": [],
+  "issues": [],
+  "timestamp": "2026-09-13T14:40:46.416Z"
+}

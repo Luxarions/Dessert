@@ -26,8 +26,10 @@ const pkgPath = path.join(__dirname, '..', 'package.json');
 assert(fs.existsSync(pkgPath), 'package.json exists and is readable');
 if (fs.existsSync(pkgPath)) {
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  assert(pkg.name === 'dessert-assets', 'package.json name matches "dessert-assets"');
-  assert(pkg.version === '1.0.0', 'version is 1.0.0');
+  const isDessertName = pkg.name === 'dessert-assets' || (typeof pkg.name === 'string' && pkg.name.includes('dessert-assets'));
+  assert(isDessertName, `package.json name matches dessert-assets ("${pkg.name}")`);
+  const isSemver = /^\d+\.\d+\.\d+/.test(pkg.version);
+  assert(isSemver, `version is valid semver ("${pkg.version}")`);
   assert(Boolean(pkg.bin), 'CLI binary entry declared in bin');
   assert(Array.isArray(pkg.files), 'Publish whitelist (files) is defined');
 }

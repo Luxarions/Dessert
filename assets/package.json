@@ -58,9 +58,10 @@
     "clean":         "node scripts/clean.js",
     "rebuild":       "npm run clean && npm run build",
     "test":          "node scripts/test.js",
+    "audit":         "node scripts/audit.js",
     "pack:dry":      "npm pack --dry-run",
     "watch":         "node scripts/watch.js",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm run audit && npm test"
   },
   "dependencies": {
     "fontmin":              "^1.0.0",

@@ -10,6 +10,7 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "assets:test": "node assets/scripts/test.js",
+    "assets:audit": "node assets/scripts/audit.js",
     "assets:build": "node assets/scripts/build-all.js",
     "assets:clean": "node assets/scripts/clean.js",
     "assets:cli": "node assets/bin/cli.js"
