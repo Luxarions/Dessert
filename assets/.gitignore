@@ -1,0 +1,45 @@
+# ============================================================
+# DESSERT ASSETS — GITIGNORE
+# ============================================================
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary build files
+.tmp/
+.cache/
+temp/
+
+# Large raw source files (optional — uncomment if needed)
+# fonts/raw/*.ttf
+# images/raw/*.psd
+# images/raw/*.ai
+# logos/source/*.ai
+# logos/source/*.fig
+# media/video/raw/*.mov
+
+# Environment
+.env
+.env.local
+.env.*.local

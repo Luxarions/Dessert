@@ -1,0 +1,45 @@
+/* ============================================================
+ * Dessert Fonts — Auto-generated
+ * DO NOT EDIT MANUALLY — run "npm run build:css" to regenerate
+ * ============================================================
+ */
+
+/* Regular — 400 normal */
+@font-face {
+  font-family: 'Dessert';
+  src: url('Dessert-Regular.woff2') format('woff2'),
+       url('Dessert-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold — 700 normal */
+@font-face {
+  font-family: 'Dessert';
+  src: url('Dessert-Bold.woff2') format('woff2'),
+       url('Dessert-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic — 400 italic */
+@font-face {
+  font-family: 'Dessert';
+  src: url('Dessert-Italic.woff2') format('woff2'),
+       url('Dessert-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* BoldItalic — 700 italic */
+@font-face {
+  font-family: 'Dessert';
+  src: url('Dessert-BoldItalic.woff2') format('woff2'),
+       url('Dessert-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Dessert Assets Build Pipeline",
+  "description": "Complete build pipeline and interactive studio for Dessert assets including fonts, images, icons, favicons, logos, media, and CSS generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
