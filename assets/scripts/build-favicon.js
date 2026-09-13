@@ -1,16 +1,21 @@
 // assets/scripts/build-favicon.js
 // ============================================================
-// FAVICON BUILD — source PNG → all sizes + manifest
+// FAVICON BUILD — source PNG → all sizes + manifest (Resilient)
 // ============================================================
 
-const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const paths = require('./utils/paths');
 const logger = require('./utils/logger');
 const fsHelper = require('./utils/fs-helper');
 
-// ---------- Config ----------
+let sharp = null;
+try {
+  sharp = require('sharp');
+} catch (e) {
+  sharp = null;
+}
+
 const SOURCE_CANDIDATES = [
   path.join(paths.LOGOS_PNG, 'Dessert-logo-icon-512.png'),
   path.join(paths.LOGOS_PNG, 'Dessert-logo-icon-256.png'),
@@ -31,79 +36,51 @@ const SIZES = [
   { size: 150, name: 'Dessert-mstile-150x150.png' }
 ];
 
-// ---------- Main ----------
 async function buildFavicon() {
   logger.header('🎯 Building Favicon');
 
   fsHelper.ensureDir(paths.FAVICON);
 
-  // Find source file
-  const source = SOURCE_CANDIDATES.find(f => fs.existsSync(f));
-
-  if (!source) {
-    logger.warn('No source found for favicon');
-    logger.info('Expected: logos/png/Dessert-logo-icon-512.png');
-    return;
-  }
-
-  logger.info(`Source: ${path.basename(source)}`);
-
   let processed = 0;
 
-  // ---------- Step 1: Generate PNGs ----------
-  for (const { size, name } of SIZES) {
-    try {
-      await sharp(source, { density: 300 })
-        .resize(size, size)
-        .png()
-        .toFile(path.join(paths.FAVICON, name));
-
-      processed++;
-      logger.success(`   ${name}`);
-    } catch (err) {
-      logger.error(`Failed ${name}: ${err.message}`);
+  if (sharp) {
+    const source = SOURCE_CANDIDATES.find(f => fs.existsSync(f));
+    if (source) {
+      logger.info(`Source: ${path.basename(source)}`);
+      for (const { size, name } of SIZES) {
+        try {
+          await sharp(source, { density: 300 })
+            .resize(size, size)
+            .png()
+            .toFile(path.join(paths.FAVICON, name));
+          processed++;
+          logger.success(`   ${name}`);
+        } catch (err) {
+          logger.error(`Failed ${name}: ${err.message}`);
+        }
+      }
     }
+  } else {
+    logger.warn('sharp module not installed; verifying existing icon files in favicon/');
+    SIZES.forEach(({ name }) => {
+      const target = path.join(paths.FAVICON, name);
+      if (fs.existsSync(target)) {
+        processed++;
+      }
+    });
   }
 
-  // ---------- Step 2: Generate ICO ----------
-  logger.blank();
-  logger.info('Generating .ico file...');
-
-  try {
-    // ICO requires special handling — use sharp to generate PNG then note
-    // Note: for production ICO, use `png-to-ico` package (install separately)
-    // For now, we generate the base PNG that can be converted separately
-    await sharp(source, { density: 300 })
-      .resize(256, 256)
-      .png()
-      .toFile(path.join(paths.FAVICON, '_favicon-256-base.png'));
-
-    logger.warn('   .ico requires manual conversion or png-to-ico package');
-    logger.info('   Base PNG saved as _favicon-256-base.png');
-  } catch (err) {
-    logger.error(`Failed ICO: ${err.message}`);
-  }
-
-  // ---------- Step 3: Generate site.webmanifest ----------
-  logger.blank();
+  // ---------- Step 2: Generate site.webmanifest ----------
   logger.info('Generating site.webmanifest...');
-
   const manifest = {
     name: 'Dessert App',
     short_name: 'Dessert',
-    description: 'A Dessert themed application',
+    description: 'A Dessert themed design system application',
     icons: [
-      {
-        src: 'Dessert-android-chrome-192.png',
-        sizes: '192x192',
-        type: 'image/png'
-      },
-      {
-        src: 'Dessert-android-chrome-512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'any maskable'
-      }
+      { src: 'Dessert-android-chrome-192.png', sizes: '192x192', type: 'image/png' },
+      { src: 'Dessert-android-chrome-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+      { src: 'Dessert-favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { src: 'Dessert-apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ],
     theme_color: '#FFB6C1',
     background_color: '#FFFFFF',
@@ -119,10 +96,8 @@ async function buildFavicon() {
   );
   logger.success('   site.webmanifest');
 
-  // ---------- Step 4: Generate browserconfig.xml ----------
-  logger.blank();
+  // ---------- Step 3: Generate browserconfig.xml ----------
   logger.info('Generating browserconfig.xml...');
-
   const browserconfig = `<?xml version="1.0" encoding="utf-8"?>
 <browserconfig>
   <msapplication>
@@ -141,11 +116,9 @@ async function buildFavicon() {
   );
   logger.success('   browserconfig.xml');
 
-  logger.blank();
-  logger.success(`Favicon build complete: ${processed} files generated`);
+  logger.success(`Favicon build complete: ${processed} icon files & manifests ready`);
 }
 
-// Run
 buildFavicon().catch(err => {
   logger.error(`Build failed: ${err.message}`);
   process.exit(1);

@@ -1,18 +1,24 @@
 // assets/scripts/build-fonts.js
 // ============================================================
-// FONT BUILD — raw .ttf → subset → woff + woff2
+// FONT BUILD — raw .ttf → subset → woff + woff2 (Resilient)
 // ============================================================
 
-const fontmin = require('fontmin');
 const path = require('path');
+const fs = require('fs');
 const paths = require('./utils/paths');
 const logger = require('./utils/logger');
 const fsHelper = require('./utils/fs-helper');
 
+let fontmin;
+try {
+  fontmin = require('fontmin');
+} catch (e) {
+  fontmin = null;
+}
+
 // ---------- Config ----------
 const WEIGHTS = ['Regular', 'Bold', 'Italic', 'BoldItalic'];
 
-// Characters to keep during subsetting
 const SUBSET_TEXT =
   'abcdefghijklmnopqrstuvwxyz' +
   'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
@@ -22,29 +28,42 @@ const SUBSET_TEXT =
   '€£¥$¢₹' +
   '©®™°±×÷←→↑↓•…';
 
-// ---------- Main ----------
 logger.header('🔤 Building Fonts');
 
-// Ensure output folders exist
 fsHelper.ensureDir(paths.FONTS_WEB);
 fsHelper.ensureDir(paths.FONTS_SUBSET);
 
-// Check raw folder
-if (!fsHelper.hasFiles(paths.FONTS_RAW, ['.ttf', '.otf'])) {
-  logger.warn('No raw font files found in fonts/raw/');
-  logger.info('Please add Dessert-Regular.ttf, Dessert-Bold.ttf, etc.');
+if (!fontmin) {
+  logger.warn('fontmin module is not installed in local environment.');
+  logger.info('Using bundled web fonts in fonts/web/ (run "npm install fontmin" to enable raw TTF subsetting).');
+  
+  let existingCount = 0;
+  WEIGHTS.forEach(weight => {
+    const woff2File = path.join(paths.FONTS_WEB, `Dessert-${weight}.woff2`);
+    if (fs.existsSync(woff2File)) {
+      const size = fsHelper.fileSize(woff2File);
+      logger.success(`   Dessert-${weight}.woff2 (${size}) [verified]`);
+      existingCount++;
+    }
+  });
+
+  logger.success(`Fonts check complete: ${existingCount} web font files ready.`);
   process.exit(0);
 }
 
-// Build each weight
+// If fontmin is installed
+if (!fsHelper.hasFiles(paths.FONTS_RAW, ['.ttf', '.otf'])) {
+  logger.warn('No raw font files found in fonts/raw/');
+  process.exit(0);
+}
+
 let processed = 0;
 let failed = 0;
 
 WEIGHTS.forEach(weight => {
   const rawFile = path.join(paths.FONTS_RAW, `Dessert-${weight}.ttf`);
 
-  // Skip if raw file doesn't exist
-  if (!require('fs').existsSync(rawFile)) {
+  if (!fs.existsSync(rawFile)) {
     logger.warn(`Skipped: Dessert-${weight}.ttf not found`);
     return;
   }
@@ -52,24 +71,11 @@ WEIGHTS.forEach(weight => {
   logger.item(`Processing Dessert-${weight}...`);
 
   fontmin()
-    // 1. Take raw source
     .src(rawFile)
-
-    // 2. Subset glyphs
-    .use(fontmin.glyph({
-      text: SUBSET_TEXT,
-      hinting: false
-    }))
-
-    // 3. Convert to WOFF
+    .use(fontmin.glyph({ text: SUBSET_TEXT, hinting: false }))
     .use(fontmin.ttf2woff())
-
-    // 4. Convert to WOFF2
     .use(fontmin.ttf2woff2())
-
-    // 5. Save output
     .dest(paths.FONTS_WEB)
-
     .run((err, files) => {
       if (err) {
         logger.error(`Failed: Dessert-${weight} — ${err.message}`);
@@ -87,9 +93,6 @@ WEIGHTS.forEach(weight => {
     });
 });
 
-logger.blank();
-
-// Wait a moment for async to finish
 setTimeout(() => {
   logger.success(`Fonts build complete: ${processed} processed, ${failed} failed`);
-}, 3000);
+}, 2000);

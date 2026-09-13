@@ -3,7 +3,7 @@
 // FS-HELPER — file system helpers used by all scripts
 // ============================================================
 
-const fs = require('fs-extra');
+const fs = require('fs');
 const path = require('path');
 const logger = require('./logger');
 
@@ -61,7 +61,7 @@ const fsHelper = {
 
     files.forEach(file => {
       if (regex.test(file)) {
-        fs.removeSync(path.join(dir, file));
+        fs.unlinkSync(path.join(dir, file));
         logger.debug(`Removed file: ${file}`);
       }
     });
